@@ -1,3 +1,7 @@
+#' @title journal
+#' @description This functions opens up a Shiny app where users can journal inside a text box. Once the user is satisfied with their journal prompt, they can export it as a PDF file with the title as the current day they wrote the journal prompt.
+#' @param journal This argument opens up the journaling Shiny app.
+#' @return Returns a PDF file of the entered text of the journal prompt.
 #' @export
 journal <- function(journal) {
   
@@ -88,6 +92,10 @@ When you're ready, click the 'Download PDF' button to download your journal entr
   shinyApp(ui, server)
 }
 
+#' @title pomodoro
+#' @description This functions allows users to use a pomodoro timer for focused work or study. Users can specify differing work and break lengths.
+#' @param pomodoro This argument opens up the pomodoro timer Shiny app.
+#' @return Starts, pauses and resets a pomodoro timer
 #' @export
 pomodoro <- function(pomodoro){
   
@@ -171,6 +179,11 @@ server <- function(input, output, session) {
 shinyApp(ui, server)
 }
 
+
+#' @title To do list
+#' @description This function allows users to imput specified tasks, which then populate to the right side of the screen. Users can then check off all done tasks which automatically move down to the bottom.
+#' @param todolist This argument opens up the to do list Shiny app.
+#' @return Opens an interactive to do list with checkboxes
 #' @export
 todolist <- function(todolist) {
 
