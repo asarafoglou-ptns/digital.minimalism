@@ -1,0 +1,19 @@
+Package: digital.minimalism
+Title: Digital Minimalism
+Version: 0.0.0.9000
+Authors@R: 
+    person("Catherine", "Guazzone", , "catherine.guazzone@student.uva.nl", role = c("aut", "cre"),
+           comment = c(ORCID = "YOUR-ORCID-ID"))
+Description: This package aims to help people be more practical in their use of technology, 
+             by reducing distraction with the number of apps they need to have, as well as 
+             developing more intentional use of screens.
+License: CC BY 4.0
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.3
+Imports:
+    shiny,
+    lubridate,
+    stringr,
+    beepr,
+    stringr
