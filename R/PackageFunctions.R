@@ -1,3 +1,68 @@
+#' @title quotes_sample
+#' @description Samples one quote at a time to be used in the Quotes app.
+#' @param x This argument takes any character vector, and will print one quote from the quptes vector.
+#' @return Returns the imputed character vector, in this case quotes.
+#' @export
+quotes_sample <- function() {
+  quotes <- c(
+    "Don't count the days, make the days count. —Muhammad Ali",
+    
+    "There is only one corner of the universe you can be certain of improving, and that's your own self. -Aldous Huxley",
+    
+    "People do not decide their futures, they decide their habits and their habits decide their futures. —Frederick M. Alexander",
+    
+    "If it doesn't challenge you, it won't change you. —Fred DeVito",
+    
+    "You must be prepared to work always without applause. —Ernest Hemingway",
+    
+    "There is nothing permanent except change. —Heraclitus",
+    
+    "Discipline is choosing between what you want now and what you want most. —Abraham Lincoln",
+    
+    "The more relaxed you are, the better you are at everything: the better you are with your loved ones, 
+    the better you are with your enemies, the better you are at your job, the better you are with yourself. —Bill Murray",
+    
+    "Never give up on a dream just because of the time it will take to accomplish it. 
+    The time will pass anyway. —Earl Nightingale",
+    
+    "Personal growth becomes so addictive once you realize that it’s always 
+    possible to improve your experience of being. —Xan Oku",
+    
+    "Your mind is a garden, your thoughts are the seeds, you can grow flowers or you can grow weeds. —Osho",
+    
+    "Change your thoughts and you change your world. —Norman Vincent Peale",
+    
+    "The virtue of self-discipline itself is a greater source of pleasure 
+    than the external objects of our desire. —Donald Robertson",
+    
+    "I am learning everyday to allow the space between where I want to be and where 
+    I am to inspire me and not terrify me. —Tracee Ellis Ross",
+    
+    "Mindfulness helps us get better at seeing the difference between what is happening 
+    and the stories we tell ourselves about what is happening, stories that get in 
+    the way of direct experience. Often such stories treat a fleeting state 
+    of mind as if it were our entire and permanent self. —Sharon Salzberg",
+    
+    "Your mind is your instrument, learn to be its master and not its slave. —Remez Sasson",
+    
+    "You cannot change what you refuse to confront. —John Spence",
+    
+    "A man who procrastinates in his choosing will eventually have his 
+    choice made for him by circumstance. —Hunter S. Thompson",
+    
+    "Self-control is just empathy with your future self. —Unknown",
+    
+    "Deal with things as they come, not as you fear them. —Unknown",
+    
+    "Everyone must choose one of two pains: The pain of discipline or the pain of regret. —Unknown",
+    
+    "Putting off something today means putting off something you could do tomorrow. —Unknown"
+  )
+  quote <- sample(quotes, 1)
+  print(quote)
+}
+quotes_sample()
+
 #' @title current
 #' @description Outputs the current date in a suitable format for the journaling app.
 #' @param x Takes any value and outputs the current date.
@@ -64,89 +129,34 @@ journal_prompt <- function(text) {
   return(temp_pdf)
 }
 
-#' @title quotes_sample
-#' @description Samples one quote at a time to be used in the Quotes app.
-#' @param x This argument takes any character vector, and will print one quote from the quptes vector.
-#' @return Returns the imputed character vector, in this case quotes.
-#' @export
-quotes_sample <- function() {
-  quotes <- c(
-    "Don't count the days, make the days count. —Muhammad Ali",
-    
-    "There is only one corner of the universe you can be certain of improving, and that's your own self. -Aldous Huxley",
-    
-    "People do not decide their futures, they decide their habits and their habits decide their futures. —Frederick M. Alexander",
-    
-    "If it doesn't challenge you, it won't change you. —Fred DeVito",
-    
-    "You must be prepared to work always without applause. —Ernest Hemingway",
-    
-    "There is nothing permanent except change. —Heraclitus",
-    
-    "Discipline is choosing between what you want now and what you want most. —Abraham Lincoln",
-    
-    "The more relaxed you are, the better you are at everything: the better you are with your loved ones, 
-    the better you are with your enemies, the better you are at your job, the better you are with yourself. —Bill Murray",
-    
-    "Never give up on a dream just because of the time it will take to accomplish it. 
-    The time will pass anyway. —Earl Nightingale",
-    
-    "Personal growth becomes so addictive once you realize that it’s always 
-    possible to improve your experience of being. —Xan Oku",
-    
-    "Your mind is a garden, your thoughts are the seeds, you can grow flowers or you can grow weeds. —Osho",
-    
-    "Change your thoughts and you change your world. —Norman Vincent Peale",
-    
-    "The virtue of self-discipline itself is a greater source of pleasure 
-    than the external objects of our desire. —Donald Robertson",
-    
-    "I am learning everyday to allow the space between where I want to be and where 
-    I am to inspire me and not terrify me. —Tracee Ellis Ross",
-    
-    "Mindfulness helps us get better at seeing the difference between what is happening 
-    and the stories we tell ourselves about what is happening, stories that get in 
-    the way of direct experience. Often such stories treat a fleeting state 
-    of mind as if it were our entire and permanent self. —Sharon Salzberg",
-    
-    "Your mind is your instrument, learn to be its master and not its slave. —Remez Sasson",
-    
-    "You cannot change what you refuse to confront. —John Spence",
-    
-    "A man who procrastinates in his choosing will eventually have his 
-    choice made for him by circumstance. —Hunter S. Thompson",
-    
-    "Self-control is just empathy with your future self. —Unknown",
-    
-    "Deal with things as they come, not as you fear them. —Unknown",
-    
-    "Everyone must choose one of two pains: The pain of discipline or the pain of regret. —Unknown",
-    
-    "Putting off something today means putting off something you could do tomorrow. —Unknown"
-  )
-  quote <- sample(quotes, 1)
-  print(quote)
-}
-quotes_sample()
-
 #' @title shiny_app
 #' @description This functions opens up a Shiny interface with interactive tools. Users can select tools to generate quotes, journal, use a pomodoro timer, and make a to do list. Once the user is satisfied with their journal prompt, they can export it as a PDF file.
 #' @param app This argument opens up the journaling Shiny app.
 #' @return Returns a user interface with tools.
 #' @export
-shiny_app <- function(app) {
-  ui <- shiny::fluidPage(
+shiny_app <- function() {
+  ui <- shiny::fluidPage(tags$style(HTML("
+    body {background-color: #434537; color: #E7E9C3;}
+    .quote-text {font-size: 20px; font-style: italic; margin-top: 20px;}
+    .button-row {margin-top: 10px;}
+    .selected-panel {border-radius: 10px; padding: 20px; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); margin-top: 20px;}
+    .btn-custom {background-color: #000000; color: #fff; border: none; margin-right: 5px;}
+    .form-control-custom {background-color: #000000; color: #fff; border: none; margin-bottom: 10px;}
+    .darker-label {color: #000000; font-weight: bold;} /* Custom CSS class for darker label */
+    .tab-title {color: #000000; font-weight: bold;} /* Custom CSS class for dark green tab title */
+    .black-label {color: #000000; font-weight: bold;} /* Custom CSS class for black labels */
+    .black-text {color: #000000; /* Black text color */}")),
     hr(),
     titlePanel("Digital Minimalist"),                                                                # title of the app
-    fluidRow(column(4, div(style = "font-size: 40px; font-weight: bold;", textOutput("date")),       # Display current date in large text
-                    checkboxGroupInput("apps", "Select Tools:",
-                                       choices = c("Pomodoro", "To-Do List",
-                                                   "Journaling", "Quotes"),                          # apps to select from
-                                       selected = "Quotes"),                                         # selected by default
-                    uiOutput("quote_buttons"),                                                       # buttons for quotes app
-                    textOutput("quote")),                                                            # quotes text
-             column(8,uiOutput("selected")
-             )
+    fluidRow(column(4, div(style = "font-size: 40px; font-weight: bold;", textOutput("date")),       # display current date in large text
+             div(style = "font-size: 30px;", textOutput("time")),                                    # display current time
+             checkboxGroupInput("apps", "Select Tools:",                                             # apps to select from
+                                choices = c("Pomodoro", "To-Do List", "Journaling", "Quotes"),
+                                selected = "Quotes"),                                                # selected by default
+             uiOutput("quote_buttons"),                                                              # buttons for quotes app
+             textOutput("quote")                                                                     # quotes text
+      ),
+      column(7, uiOutput("selected"))
     )
   )
   
@@ -165,15 +175,15 @@ shiny_app <- function(app) {
     })
     
     shiny::observeEvent(input$pause, {                                                               # when the pause button is clicked, then
-      disable("pause")                                                                                             # disable the pause button from being clicked
+      shinyjs::disable("pause")                                                                                             # disable the pause button from being clicked
       values$playing <- FALSE                                                                        # pause the quotes generation
-      enable("play")                                                                                 # allow the play button to be clicked
+      shinyjs::enable("play")                                                                                 # allow the play button to be clicked
     })
     
     shiny::observeEvent(input$play, {                                                                # when the play button is clicked, then
-      disable("play")                                                                                              # disable play button from being clicked
+      shinyjs::disable("play")                                                                                              # disable play button from being clicked
       values$playing <- TRUE                                                                         # generate a quote every 10 seconds
-      enable("pause")                                                                                # allow pause button to be clicked
+      shinyjs::enable("pause")                                                                                # allow pause button to be clicked
     })
     
     shiny::observe({                                                                                 # when the play button is pressed, new quotes are generated every 10 seconds
@@ -273,8 +283,10 @@ shiny_app <- function(app) {
       timer(ifelse(period() == "work", as.numeric(input$work_length) * 60, as.numeric(input$break_length) * 60))
       active(FALSE)                                                                                  # resets the timer
       pomodoros(0)
-      output$status <- shiny::renderText(" ")                                                        # status message on reset
-    })
+      output$status <- shiny::renderText({
+        stringr::str_glue("Completed rounds: {pomodoros()}")                                         # status message on reset
+      })
+    })                                                
     
     shiny::observe({
       if (period() == "work") {
@@ -290,18 +302,17 @@ shiny_app <- function(app) {
     
     next_period <- function() {
       if (period() == "work") {
-        lubridate::period("break")
-        timer(as.numeric(input$break_length) * 60)
         beepr::beep(sound = "complete")                                                              # produces a sound notification when work timer is up
-        showModal(modalDialog(title = 'Break Time', 'Time to take a break!'))                        # tells you to take a break when work timer is up
+        showModal(modalDialog(title = HTML('<span style="color: black;">Break Time</span>'),         # tells you to take a break when work timer is up
+                              HTML('<span style="color: black;">Time to take a break!</span>')))
+        period("break")                                                                              # update period to break
+        timer(as.numeric(input$break_length) * 60)
       } else {
-        period("work")
-        pomodoros(pomodoros() + 1)                                                                   # add +1 to count of completed pom
-        
-        
-        pomodoros(pomodoros() + 1)                                                                   # add +1 to count of completed pomodoros
         beepr::beep(sound = "ping")                                                                  # produces a sound notification when break timer is up
-        shiny::showModal(modalDialog(title = 'Work Time', 'Time to focus!'))                                # tells you to get back to work when break timer is up
+        shiny::showModal(modalDialog(title = HTML('<span style="color: black;">Work Time</span>'),   # tells you to get back to work when break timer is up
+                                     HTML('<span style="color: black;">Time to focus!</span>')))
+        period("work")                                                                               # update period to work
+        pomodoros(pomodoros() + 1)                                                                   # add +1 to count of completed pomodoros
         timer(as.numeric(input$work_length) * 60)
       }
     }
@@ -334,53 +345,71 @@ shiny_app <- function(app) {
       selected <- input$apps
       
       selected_ui <- list()
-      if ("Pomodoro" %in% selected) {                                                                # Display Pomodoro app if selected
-        selected_ui[["pomodoro"]] <- tabsetPanel(
-          tabPanel("Pomodoro",                                                                       # title of the app
-                   hr(),
-                   selectInput('work_length', 'Length of focus', choices = c(15, 25, 60), selected = 25),   # selecting the amount of work time
-                   selectInput('break_length', 'Length of break', choices = c(5, 10, 30), selected = 5),    # selecting the amount of break time
-                   actionButton('start', 'Start Timer'),                                                    # starting the timer
-                   actionButton('stop', 'Pause Timer'),                                                     # pausing the timer
-                   actionButton('reset', 'Reset Timer'),                                                    # resetting everything
-                   textOutput('timeleft'),                                                                  # time remaining for the break / work timer
-                   textOutput('status')                                                                     # checking the status of the pomodoro
-          )
+      if ("Pomodoro" %in% selected) {                                                                # display pomodoro app if selected
+        selected_ui[["pomodoro"]] <- div(
+          tabsetPanel(
+            tabPanel(tags$span("Pomodoro", class = "tab-title"),                                     # title of the app
+                     hr(),
+                     selectInput('work_length', tags$span('Length of focus', class = 'black-label'), 
+                                 choices = c(15, 25, 60), selected = 25),                            # selecting the amount of work time
+                     selectInput('break_length', tags$span('Length of break', class = 'black-label'), 
+                                 choices = c(5, 10, 30), selected = 5),                              # selecting the amount of break time
+                     actionButton('start', 'Start Timer', class = "btn-custom"),                     # starting the timer
+                     actionButton('stop', 'Pause Timer', class = "btn-custom"),                      # pausing the timer
+                     actionButton('reset', 'Reset Timer', class = "btn-custom"),                     # resetting everything
+                     textOutput('timeleft'),                                                         # time remaining for the break / work timer
+                     textOutput('status')                                                            # checking the status of the pomodoro
+            )
+          ),
+          class = "selected-panel",
+          style = "background-color: #7D8069;"
         )
       }
-      if ("To-Do List" %in% selected) {                                                              # Display To-Do List app if selected
-        selected_ui[["todo"]] <- tabsetPanel(
-          tabPanel("To Do List",
-                   hr(),
-                   sidebarLayout(
-                     sidebarPanel(
-                       textInput("customText", "Enter task below:", value = ""),
-                       actionButton("addButton", "Add To List")
-                     ),
-                     mainPanel(
-                       uiOutput("checkboxes")
+      if ("To-Do List" %in% selected) {                                                              # display To-Do List app if selected
+        selected_ui[["todo"]] <- div(
+          tabsetPanel(
+            tabPanel(tags$span("To Do List", class = "tab-title"),
+                     hr(),
+                     sidebarLayout(
+                       sidebarPanel(
+                         textInput("customText", label = tags$span("Enter task below:", class = "darker-label"), value = ""),
+                         actionButton("addButton", "Add Task", class = "btn-custom")
+                       ),
+                       mainPanel(
+                         uiOutput("checkboxes")
+                       )
                      )
-                   )
-          )
+            )
+          ),
+          class = "selected-panel",
+          style = "background-color: #838459;"
         )
       }
-      if ("Journaling" %in% selected) {                                                              # Display Journaling app if selected
-        selected_ui[["journaling"]] <- tabsetPanel(
-          tabPanel("Journaling",
-                   hr(),
-                   textAreaInput("text", "How are you feeling today?", rows = 10,
-                                 placeholder = "Write your journal entry here.\n\nWhen you're ready, click the 'Download PDF' button to download your journal entry."),
-                   downloadButton("downloadPDF", "Download PDF")
-          )
+      if ("Journaling" %in% selected) {                                                              # display Journaling app if selected
+        selected_ui[["journaling"]] <- div(
+          tabsetPanel(
+            tabPanel(tags$span("Journaling", class = "tab-title"),
+                     hr(),
+                     textAreaInput("text", "How are you feeling today?", rows = 10,
+                                   placeholder = "Write your journal entry here.\n\nWhen you're ready, click the 'Download PDF' button to download your journal entry."),
+                     downloadButton("downloadPDF", "Download PDF", class = "btn-custom")
+            )
+          ),
+          class = "selected-panel",
+          style = "background-color: #5D6040;"
         )
       }
-      do.call(tagList, selected_ui)                                                                  # Renders multiple UI elements
+      do.call(tagList, selected_ui)                                                                  # renders multiple UI elements
     })
-    
     output$date <- shiny::renderText({
       current()
+    })
+    observe({
+      invalidateLater(1000, session)
+      output$time <- renderText({
+        format(Sys.time(), "%I:%M %p")
+      })
     })
   }
   shinyApp(ui, server)
 }
-
