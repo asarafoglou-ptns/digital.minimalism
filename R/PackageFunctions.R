@@ -1,6 +1,15 @@
+#' @title required
+#' @description Installs and loads all necessary packages for the Shiny interface. Already installed packages are only loaded.
+#' @return Returns text in the console informing the user of what packages are being installed and loaded.
+#' @export
+required <- function() {
+  if (!require("pacman")) install.packages("pacman")
+  pacman::p_load(shiny, shinyjs, lubridate, beepr, stringr)
+}
+
 #' @title quotes_sample
 #' @description Samples one quote at a time to be used in the Quotes app.
-#' @param x This argument takes any character vector, and will print one quote from the quptes vector.
+#' @param x This argument takes any character vector, and will print one quote from the quotes vector.
 #' @return Returns the imputed character vector, in this case quotes.
 #' @export
 quotes_sample <- function() {
@@ -135,28 +144,41 @@ journal_prompt <- function(text) {
 #' @return Returns a user interface with tools.
 #' @export
 shiny_app <- function() {
-  ui <- shiny::fluidPage(tags$style(HTML("
-    body {background-color: #434537; color: #E7E9C3;}
-    .quote-text {font-size: 20px; font-style: italic; margin-top: 20px;}
-    .button-row {margin-top: 10px;}
-    .selected-panel {border-radius: 10px; padding: 20px; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); margin-top: 20px;}
-    .btn-custom {background-color: #000000; color: #fff; border: none; margin-right: 5px;}
-    .form-control-custom {background-color: #000000; color: #fff; border: none; margin-bottom: 10px;}
-    .darker-label {color: #000000; font-weight: bold;} /* Custom CSS class for darker label */
-    .tab-title {color: #000000; font-weight: bold;} /* Custom CSS class for dark green tab title */
-    .black-label {color: #000000; font-weight: bold;} /* Custom CSS class for black labels */
-    .black-text {color: #000000; /* Black text color */}")),
-    hr(),
-    titlePanel("Digital Minimalist"),                                                                # title of the app
-    fluidRow(column(4, div(style = "font-size: 40px; font-weight: bold;", textOutput("date")),       # display current date in large text
-             div(style = "font-size: 30px;", textOutput("time")),                                    # display current time
-             checkboxGroupInput("apps", "Select Tools:",                                             # apps to select from
-                                choices = c("Pomodoro", "To-Do List", "Journaling", "Quotes"),
-                                selected = "Quotes"),                                                # selected by default
-             uiOutput("quote_buttons"),                                                              # buttons for quotes app
-             textOutput("quote")                                                                     # quotes text
+  ui <- shiny::fluidPage(
+    shiny::tags$style(
+      shiny::HTML("
+        body {background-color: #434537; color: #E7E9C3; margin-left: 50px;}
+        .selected-panel {border-radius: 30px; padding: 20px; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); margin-top: 10px;}
+        .btn-custom {background-color: #000000; color: #fff; border: 2xp; margin-left: 5px;}
+        .darker-label {color: #000000; font-weight: bold;}
+        .tab-title {color: #000000; font-weight: bold;}
+        .black-label {color: #000000; font-weight: bold;}
+        .black-text {color: #000000;}
+        .app-background {background-color: #626452; padding: 20px; border-radius: 15px; width: 80%; margin-top: 50xp; margin-bottom: 30px;}
+        .selected-background {background-color: #434537; padding: 20px; border-radius: 10px; width: 85%; margin-left: auto; margin-right: auto;}
+        .todo-container {width: 1100px; margin: 10;}
+             ")
+    ),
+    shiny::hr(),
+    shiny::titlePanel("Digital Minimalist"),                                                                                                      # title of the app
+    shiny::fluidRow(
+      shiny::column(4,
+                    shiny::div(style = "font-size: 40px; font-weight: bold;", shiny::textOutput("date")),                        # display current date in large text
+                    shiny::div(style = "font-size: 30px;", shiny::textOutput("time")),                                           # display current time
+                    shiny::div(style = "font-size: 20px;",
+                               class = "app-background",
+                               shiny::checkboxGroupInput("apps", "Select Tools:",
+                                                         choices = c("Pomodoro", "To-Do List", "Journaling", "Quotes"),          # apps to select from
+                                                         selected = "Quotes")),                                                  # selected by default
+                    shiny::uiOutput("quote_buttons"),                                                                            # buttons for quotes app
+                    shiny::div(
+                      shiny::textOutput("quote"), style = "font-size: 25px; font-style: italic;"),                               # quotes text
       ),
-      column(7, uiOutput("selected"))
+      shiny::column(7,
+                    shiny::div(class = "selected-background",
+                               shiny::uiOutput("selected")
+                    )
+      )
     )
   )
   
@@ -206,9 +228,9 @@ shiny_app <- function() {
     output$quote_buttons <- shiny::renderUI({
       if ("Quotes" %in% input$apps) {
         shiny::fluidRow(
-          shiny::actionButton("next_quote", "Next"),
-          shiny::actionButton("pause", "Pause"),
-          shiny::actionButton("play", "Play")
+          shiny::actionButton("next_quote", "Next", class = "btn-custom"),
+          shiny::actionButton("pause", "Pause", class = "btn-custom"),
+          shiny::actionButton("play", "Play", class = "btn-custom")
         )
       } else {
         NULL
@@ -370,14 +392,16 @@ shiny_app <- function() {
           tabsetPanel(
             tabPanel(tags$span("To Do List", class = "tab-title"),
                      hr(),
-                     sidebarLayout(
-                       sidebarPanel(
-                         textInput("customText", label = tags$span("Enter task below:", class = "darker-label"), value = ""),
-                         actionButton("addButton", "Add Task", class = "btn-custom")
-                       ),
-                       mainPanel(
-                         uiOutput("checkboxes")
-                       )
+                     div(class = "todo-container",  # Adding custom class to container
+                         sidebarLayout(
+                           sidebarPanel(
+                             div(textInput("customText", label = tags$span("Enter task below:", class = "darker-label")), class = "custom-text-input"), # Wrap textInput in a div and apply class here
+                             actionButton("addButton", "Add Task", class = "btn-custom")
+                           ),
+                           mainPanel(
+                             uiOutput("checkboxes")
+                           )
+                         )
                      )
             )
           ),
@@ -411,5 +435,5 @@ shiny_app <- function() {
       })
     })
   }
-  shinyApp(ui, server)
+  shiny::shinyApp(ui, server)
 }
