@@ -4,7 +4,7 @@
 \alias{shiny_app}
 \title{shiny_app}
 \usage{
-shiny_app(app)
+shiny_app()
 }
 \arguments{
 \item{app}{This argument opens up the journaling Shiny app.}

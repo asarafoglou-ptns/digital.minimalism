@@ -4,7 +4,7 @@
 #' @export
 required <- function() {
   if (!require("pacman")) install.packages("pacman")
-  pacman::p_load(shiny, shinyjs, lubridate, beepr, stringr)
+  pacman::p_load(shiny, shinyjs, lubridate, beepr, stringr, devtools)
 }
 
 #' @title quotes_sample
