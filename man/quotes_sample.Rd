@@ -7,7 +7,7 @@
 quotes_sample()
 }
 \arguments{
-\item{x}{This argument takes any character vector, and will print one quote from the quptes vector.}
+\item{x}{This argument takes any character vector, and will print one quote from the quotes vector.}
 }
 \value{
 Returns the imputed character vector, in this case quotes.
